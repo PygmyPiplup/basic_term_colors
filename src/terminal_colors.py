@@ -55,22 +55,50 @@ class TerminalColors:
 
     @staticmethod
     def error(error_message: str, formatting=(RED + BOLD)):
+        """
+        Easily Generate Error Log Message
+        :param error_message: str
+        :param formatting: str
+        :return formatted string: str
+        """
         return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
 
     @staticmethod
     def warning(error_message: str, formatting=(YELLOW + BOLD)):
+        """
+        Easily Generate Warning Log Message
+        :param error_message: str
+        :param formatting: str
+        :return: str
+        """
         return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
 
     @staticmethod
     def success(error_message: str, formatting=(LIGHT_GREEN + BOLD)):
+        """
+        Easily Generate Success Log Message
+        :param error_message: str
+        :param formatting: str
+        :return: str
+        """
         return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
 
     @staticmethod
     def info(error_message: str, formatting=(LIGHT_GRAY + BOLD)):
+        """
+        Easily Generate Success Info Message
+        :param error_message: str
+        :param formatting: str
+        :return: str
+        """
         return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
 
 
 class DisplayColors:
+    """
+    Helper Functions To Display All Combinations Of
+    Colors, Styles and Backgrounds
+    """
     os.system("")
 
     def __init__(self):
@@ -137,7 +165,11 @@ class DisplayColors:
         return background_colors, light_background_colors
 
     def show_dark_colors_and_backgrounds(self):
-
+        """
+        Prints All Dark Colors, Background and Styles in Every Combination
+        To The Terminal
+        :return:
+        """
         for style in self.text_styles.keys():
             for color in self.text_colors[0].keys():
                 text = ''
@@ -150,7 +182,11 @@ class DisplayColors:
             print('\n')
 
     def show_light_colors_and_backgrounds(self):
-
+        """
+        Prints All Light Colors, Background and Styles in Every Combination
+        To The Terminal
+        :return:
+        """
         for style in self.text_styles.keys():
             for color in self.text_colors[1].keys():
                 text = ''
@@ -163,6 +199,11 @@ class DisplayColors:
             print('\n')
 
     def show_all_colors_and_backgrounds(self):
+        """
+        Prints All Colors, Background and Styles in Every Combination
+        To The Terminal
+        :return:
+        """
         full_text = ""
         for style in self.text_styles.keys():
             for color in self.text_colors[0].keys():
