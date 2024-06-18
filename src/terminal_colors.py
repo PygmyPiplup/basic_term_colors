@@ -54,43 +54,55 @@ class TerminalColors:
     LIGHT_GRAY_BACKGROUND = '\33[107m'
 
     @staticmethod
-    def error(error_message: str, formatting=(RED + BOLD)):
+    def error(error_message: str, formatting=(RED + BOLD), should_print=True):
         """
         Easily Generate Error Log Message
+        :param should_print: bool
         :param error_message: str
         :param formatting: str
         :return formatted string: str
         """
+        if should_print:
+            print(formatting + f"ERROR: {error_message}" + TerminalColors.RESET)
         return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
 
     @staticmethod
-    def warning(error_message: str, formatting=(YELLOW + BOLD)):
+    def warning(error_message: str, formatting=(YELLOW + BOLD), should_print=True):
         """
         Easily Generate Warning Log Message
+        :param should_print: bool
         :param error_message: str
         :param formatting: str
         :return: str
         """
+        if should_print:
+            print(formatting + f"WARNING: {error_message}" + TerminalColors.RESET)
         return formatting + f"WARNING: {error_message}" + TerminalColors.RESET
 
     @staticmethod
-    def success(error_message: str, formatting=(LIGHT_GREEN + BOLD)):
+    def success(error_message: str, formatting=(LIGHT_GREEN + BOLD), should_print=True):
         """
         Easily Generate Success Log Message
+        :param should_print: bool
         :param error_message: str
         :param formatting: str
         :return: str
         """
+        if should_print:
+            print(formatting + f"SUCCESS: {error_message}" + TerminalColors.RESET)
         return formatting + f"SUCCESS: {error_message}" + TerminalColors.RESET
 
     @staticmethod
-    def info(error_message: str, formatting=(LIGHT_GRAY + BOLD)):
+    def info(error_message: str, formatting=(LIGHT_GRAY + BOLD), should_print=True):
         """
         Easily Generate Success Info Message
+        :param should_print: bool
         :param error_message: str
         :param formatting: str
         :return: str
         """
+        if should_print:
+            print(formatting + f"INFO: {error_message}" + TerminalColors.RESET)
         return formatting + f"INFO: {error_message}" + TerminalColors.RESET
 
 
