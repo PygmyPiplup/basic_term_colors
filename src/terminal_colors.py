@@ -71,7 +71,7 @@ class TerminalColors:
         :param formatting: str
         :return: str
         """
-        return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
+        return formatting + f"WARNING: {error_message}" + TerminalColors.RESET
 
     @staticmethod
     def success(error_message: str, formatting=(LIGHT_GREEN + BOLD)):
@@ -81,7 +81,7 @@ class TerminalColors:
         :param formatting: str
         :return: str
         """
-        return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
+        return formatting + f"SUCCESS: {error_message}" + TerminalColors.RESET
 
     @staticmethod
     def info(error_message: str, formatting=(LIGHT_GRAY + BOLD)):
@@ -91,7 +91,7 @@ class TerminalColors:
         :param formatting: str
         :return: str
         """
-        return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
+        return formatting + f"INFO: {error_message}" + TerminalColors.RESET
 
 
 class DisplayColors:
