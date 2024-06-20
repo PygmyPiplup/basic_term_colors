@@ -54,184 +54,177 @@ class TerminalColors:
     LIGHT_GRAY_BACKGROUND = '\33[107m'
 
     @staticmethod
-    def error(error_message: str, formatting=(RED + BOLD), should_print=True):
+    def format_message(level: str, message: str, formatting: str) -> str:
         """
-        Easily Generate Error Log Message
-        :param should_print: bool
-        :param error_message: str
-        :param formatting: str
-        :return formatted string: str
+        Format a message with a given level, message, and formatting.
+
+        :param level: The level of the message (e.g., "ERROR").
+        :param message: The message to be formatted.
+        :param formatting: The ANSI formatting for the message.
+        :return: The formatted message string.
         """
-        if should_print:
-            print(formatting + f"ERROR: {error_message}" + TerminalColors.RESET)
-        return formatting + f"ERROR: {error_message}" + TerminalColors.RESET
+        return f"{formatting}{level}: {message}{TerminalColors.RESET}"
 
     @staticmethod
-    def warning(error_message: str, formatting=(YELLOW + BOLD), should_print=True):
+    def log_message(level: str, message: str, formatting: str, should_print: bool = True) -> str:
         """
-        Easily Generate Warning Log Message
-        :param should_print: bool
-        :param error_message: str
-        :param formatting: str
-        :return: str
+        Log a message with a given level and formatting.
+
+        :param level: The level of the message (e.g., "ERROR").
+        :param message: The message to be logged.
+        :param formatting: The ANSI formatting for the message.
+        :param should_print: Whether to print the message to the terminal.
+        :return: The formatted message string.
         """
+        formatted_message = TerminalColors.format_message(level, message, formatting)
         if should_print:
-            print(formatting + f"WARNING: {error_message}" + TerminalColors.RESET)
-        return formatting + f"WARNING: {error_message}" + TerminalColors.RESET
+            print(formatted_message)
+        return formatted_message
 
     @staticmethod
-    def success(error_message: str, formatting=(LIGHT_GREEN + BOLD), should_print=True):
+    def error(message: str, formatting: str = RED + BOLD, should_print: bool = True) -> str:
         """
-        Easily Generate Success Log Message
-        :param should_print: bool
-        :param error_message: str
-        :param formatting: str
-        :return: str
+        Log an error message.
+
+        :param message: The error message to be logged.
+        :param formatting: The ANSI formatting for the error message.
+        :param should_print: Whether to print the message to the terminal.
+        :return: The formatted error message string.
         """
-        if should_print:
-            print(formatting + f"SUCCESS: {error_message}" + TerminalColors.RESET)
-        return formatting + f"SUCCESS: {error_message}" + TerminalColors.RESET
+        return TerminalColors.log_message("ERROR", message, formatting, should_print)
 
     @staticmethod
-    def info(error_message: str, formatting=(LIGHT_GRAY + BOLD), should_print=True):
+    def warning(message: str, formatting: str = YELLOW + BOLD, should_print: bool = True) -> str:
         """
-        Easily Generate Success Info Message
-        :param should_print: bool
-        :param error_message: str
-        :param formatting: str
-        :return: str
+        Log a warning message.
+
+        :param message: The warning message to be logged.
+        :param formatting: The ANSI formatting for the warning message.
+        :param should_print: Whether to print the message to the terminal.
+        :return: The formatted warning message string.
         """
-        if should_print:
-            print(formatting + f"INFO: {error_message}" + TerminalColors.RESET)
-        return formatting + f"INFO: {error_message}" + TerminalColors.RESET
+        return TerminalColors.log_message("WARNING", message, formatting, should_print)
+
+    @staticmethod
+    def success(message: str, formatting: str = LIGHT_GREEN + BOLD, should_print: bool = True) -> str:
+        """
+        Log a success message.
+
+        :param message: The success message to be logged.
+        :param formatting: The ANSI formatting for the success message.
+        :param should_print: Whether to print the message to the terminal.
+        :return: The formatted success message string.
+        """
+        return TerminalColors.log_message("SUCCESS", message, formatting, should_print)
+
+    @staticmethod
+    def info(message: str, formatting: str = LIGHT_GRAY + BOLD, should_print: bool = True) -> str:
+        """
+        Log an info message.
+
+        :param message: The info message to be logged.
+        :param formatting: The ANSI formatting for the info message.
+        :param should_print: Whether to print the message to the terminal.
+        :return: The formatted info message string.
+        """
+        return TerminalColors.log_message("INFO", message, formatting, should_print)
 
 
 class DisplayColors:
     """
     Helper Functions To Display All Combinations Of
-    Colors, Styles and Backgrounds
+    Colors, Styles, and Backgrounds
     """
+
+    # Required for colors to display properly in Windows terminal
     os.system("")
 
     def __init__(self):
-        self.background_colors = self.get_background_colors()
-        self.text_colors = self.get_text_colors()
-        self.text_styles = self.get_text_styles()
-
-    @staticmethod
-    def get_text_colors():
-        colors = {
-            "BLACK": TerminalColors.BLACK,
-            "RED": TerminalColors.RED,
-            "GREEN": TerminalColors.GREEN,
-            "YELLOW": TerminalColors.YELLOW,
-            "BLUE": TerminalColors.BLUE,
-            "VIOLET": TerminalColors.VIOLET,
-            "TEAL": TerminalColors.TEAL,
-            "WHITE": TerminalColors.WHITE,
+        self.text_colors = {
+            "dark": {
+                "BLACK": TerminalColors.BLACK,
+                "RED": TerminalColors.RED,
+                "GREEN": TerminalColors.GREEN,
+                "YELLOW": TerminalColors.YELLOW,
+                "BLUE": TerminalColors.BLUE,
+                "VIOLET": TerminalColors.VIOLET,
+                "TEAL": TerminalColors.TEAL,
+                "WHITE": TerminalColors.WHITE,
+            },
+            "light": {
+                "GRAY": TerminalColors.GRAY,
+                "LIGHT_RED": TerminalColors.LIGHT_RED,
+                "LIGHT_GREEN": TerminalColors.LIGHT_GREEN,
+                "LIGHT_YELLOW": TerminalColors.LIGHT_YELLOW,
+                "LIGHT_BLUE": TerminalColors.LIGHT_BLUE,
+                "LIGHT_VIOLET": TerminalColors.LIGHT_VIOLET,
+                "LIGHT_TEAL": TerminalColors.LIGHT_TEAL,
+                "LIGHT_GRAY": TerminalColors.LIGHT_GRAY,
+            }
         }
-        light_colors = {
-            "GRAY": TerminalColors.GRAY,
-            "LIGHT_RED": TerminalColors.LIGHT_RED,
-            "LIGHT_GREEN": TerminalColors.LIGHT_GREEN,
-            "LIGHT_YELLOW": TerminalColors.LIGHT_YELLOW,
-            "LIGHT_BLUE": TerminalColors.LIGHT_BLUE,
-            "LIGHT_VIOLET": TerminalColors.LIGHT_VIOLET,
-            "LIGHT_TEAL": TerminalColors.LIGHT_TEAL,
-            "LIGHT_GRAY": TerminalColors.LIGHT_GRAY,
-        }
-        return colors, light_colors
 
-    @staticmethod
-    def get_text_styles():
-        styles = {
+        self.text_styles = {
             "END": TerminalColors.END,
             "BOLD": TerminalColors.BOLD,
             "ITALIC": TerminalColors.ITALIC,
             "URL": TerminalColors.URL,
             "SELECTED": TerminalColors.SELECTED,
         }
-        return styles
 
-    @staticmethod
-    def get_background_colors():
-        background_colors = {
-            "BLACK_BACKGROUND": TerminalColors.BLACK_BACKGROUND,
-            "RED_BACKGROUND": TerminalColors.RED_BACKGROUND,
-            "GREEN_BACKGROUND": TerminalColors.GREEN_BACKGROUND,
-            "YELLOW_BACKGROUND": TerminalColors.YELLOW_BACKGROUND,
-            "BLUE_BACKGROUND": TerminalColors.BLUE_BACKGROUND,
-            "VIOLET_BACKGROUND": TerminalColors.VIOLET_BACKGROUND,
-            "TEAL_BACKGROUND": TerminalColors.TEAL_BACKGROUND,
-            "WHITE_BACKGROUND": TerminalColors.WHITE_BACKGROUND,
+        self.background_colors = {
+            "dark": {
+                "BLACK_BACKGROUND": TerminalColors.BLACK_BACKGROUND,
+                "RED_BACKGROUND": TerminalColors.RED_BACKGROUND,
+                "GREEN_BACKGROUND": TerminalColors.GREEN_BACKGROUND,
+                "YELLOW_BACKGROUND": TerminalColors.YELLOW_BACKGROUND,
+                "BLUE_BACKGROUND": TerminalColors.BLUE_BACKGROUND,
+                "VIOLET_BACKGROUND": TerminalColors.VIOLET_BACKGROUND,
+                "TEAL_BACKGROUND": TerminalColors.TEAL_BACKGROUND,
+                "WHITE_BACKGROUND": TerminalColors.WHITE_BACKGROUND,
+            },
+            "light": {
+                "GRAY_BACKGROUND": TerminalColors.GRAY_BACKGROUND,
+                "LIGHT_RED_BACKGROUND": TerminalColors.LIGHT_RED_BACKGROUND,
+                "LIGHT_GREEN_BACKGROUND": TerminalColors.LIGHT_GREEN_BACKGROUND,
+                "LIGHT_YELLOW_BACKGROUND": TerminalColors.LIGHT_YELLOW_BACKGROUND,
+                "LIGHT_BLUE_BACKGROUND": TerminalColors.LIGHT_BLUE_BACKGROUND,
+                "LIGHT_VIOLET_BACKGROUND": TerminalColors.LIGHT_VIOLET_BACKGROUND,
+                "LIGHT_TEAL_BACKGROUND": TerminalColors.LIGHT_TEAL_BACKGROUND,
+                "LIGHT_GRAY_BACKGROUND": TerminalColors.LIGHT_GRAY_BACKGROUND,
+            }
         }
-        light_background_colors = {
-            "GRAY_BACKGROUND": TerminalColors.GRAY_BACKGROUND,
-            "LIGHT_RED_BACKGROUND": TerminalColors.LIGHT_RED_BACKGROUND,
-            "LIGHT_GREEN_BACKGROUND": TerminalColors.LIGHT_GREEN_BACKGROUND,
-            "LIGHT_YELLOW_BACKGROUND": TerminalColors.LIGHT_YELLOW_BACKGROUND,
-            "LIGHT_BLUE_BACKGROUND": TerminalColors.LIGHT_BLUE_BACKGROUND,
-            "LIGHT_VIOLET_BACKGROUND": TerminalColors.LIGHT_VIOLET_BACKGROUND,
-            "LIGHT_TEAL_BACKGROUND": TerminalColors.LIGHT_TEAL_BACKGROUND,
-            "LIGHT_GRAY_BACKGROUND": TerminalColors.LIGHT_GRAY_BACKGROUND, }
-        return background_colors, light_background_colors
+
+    def show_combinations(self, colors, backgrounds):
+        """
+        Prints All Colors, Background, and Styles Combinations
+        to the Terminal
+        """
+        for style_name, style in self.text_styles.items():
+            for color_name, color in colors.items():
+                line = ''
+                for bg_name, background in backgrounds.items():
+                    text_format = f"{style_name};{color_name};{bg_name}"
+                    formatted_text = f"{style}{color}{background}"
+                    needed_white_space = 50 - len(text_format)
+                    line += f"{formatted_text}{text_format}{' ' * needed_white_space}{TerminalColors.RESET}"
+                print(line)
+            print('\n')
 
     def show_dark_colors_and_backgrounds(self):
         """
-        Prints All Dark Colors, Background and Styles in Every Combination
-        To The Terminal
-        :return:
+        Displays all combinations of dark colors and backgrounds with text styles
         """
-        for style in self.text_styles.keys():
-            for color in self.text_colors[0].keys():
-                text = ''
-                for background in self.background_colors[0].keys():
-                    text_format = ';'.join([style, color, background])
-                    color_format = f"{self.text_styles.get(style) + self.text_colors[0].get(color) + self.background_colors[0].get(background)}"
-                    needed_white_space = 35 - len(text_format)
-                    text += f'{color_format}{text_format}{" " * needed_white_space}{TerminalColors.RESET}'
-                print(text)
-            print('\n')
+        self.show_combinations(self.text_colors["dark"], self.background_colors["dark"])
 
     def show_light_colors_and_backgrounds(self):
         """
-        Prints All Light Colors, Background and Styles in Every Combination
-        To The Terminal
-        :return:
+        Displays all combinations of light colors and backgrounds with text styles
         """
-        for style in self.text_styles.keys():
-            for color in self.text_colors[1].keys():
-                text = ''
-                for background in self.background_colors[1].keys():
-                    text_format = ';'.join([style, color, background])
-                    color_format = f"{self.text_styles.get(style) + self.text_colors[1].get(color) + self.background_colors[1].get(background)}"
-                    needed_white_space = 46 - len(text_format)
-                    text += f'{color_format}{text_format}{" " * needed_white_space}{TerminalColors.RESET}'
-                print(text)
-            print('\n')
+        self.show_combinations(self.text_colors["light"], self.background_colors["light"])
 
     def show_all_colors_and_backgrounds(self):
         """
-        Prints All Colors, Background and Styles in Every Combination
-        To The Terminal
-        :return:
+        Displays all combinations of both light and dark colors and backgrounds with text styles
         """
-        full_text = ""
-        for style in self.text_styles.keys():
-            for color in self.text_colors[0].keys():
-                text = ''
-                for background in self.background_colors[0].keys():
-                    text_format = ';'.join([style, color, background])
-                    color_format = f"{self.text_styles.get(style) + self.text_colors[0].get(color) + self.background_colors[0].get(background)}"
-                    needed_white_space = 46 - len(text_format)
-                    text += f'{color_format}{text_format}{" " * needed_white_space}{TerminalColors.RESET}'
-                full_text += f"{text}\n"
-            for color in self.text_colors[1].keys():
-                text = ''
-                for background in self.background_colors[1].keys():
-                    text_format = ';'.join([style, color, background])
-                    color_format = f"{self.text_styles.get(style) + self.text_colors[1].get(color) + self.background_colors[1].get(background)}"
-                    needed_white_space = 46 - len(text_format)
-                    text += f'{color_format}{text_format}{" " * needed_white_space}{TerminalColors.RESET}'
-                full_text += f"{text}\n"
-        return full_text
+        self.show_combinations(self.text_colors["dark"], self.background_colors["dark"])
+        self.show_combinations(self.text_colors["light"], self.background_colors["light"])
